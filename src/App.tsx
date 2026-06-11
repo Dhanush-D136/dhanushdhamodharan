@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PortfolioHero from "@/components/ui/portfolio-hero";
 import { RadialScrollGallery } from "@/components/ui/portfolio-and-image-gallery";
 import CanvasParticles from "@/components/ui/canvas-particles";
@@ -228,6 +228,8 @@ export default function App() {
   const [isExiting, setIsExiting] = useState(false);
   const [hologramSweep, setHologramSweep] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [mobileIndex, setMobileIndex] = useState(0);
+  const touchStart = useRef<number | null>(null);
 
 
   // Responsive check
@@ -239,6 +241,25 @@ export default function App() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Touch handlers for mobile 3D Coverflow slider
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart.current - touchEnd;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        setMobileIndex((prev) => Math.min(achievementsAndProjects.length - 1, prev + 1));
+      } else {
+        setMobileIndex((prev) => Math.max(0, prev - 1));
+      }
+    }
+    touchStart.current = null;
+  };
 
   // Cinematic background slideshow for loader
   const loaderImages = [
@@ -640,68 +661,167 @@ export default function App() {
         </div>
 
         {/* Gallery */}
-        <RadialScrollGallery
-          className="!min-h-[600px] sm:!min-h-[700px] w-full"
-          baseRadius={420}
-          mobileRadius={180}
-          visiblePercentage={50}
-          scrollDuration={2200}
-        >
-          {(hoveredIndex) =>
-            achievementsAndProjects.map((project, index) => {
-              const isActive = hoveredIndex === index;
-              return (
-                <div 
-                  key={project.id} 
-                  className={`group relative overflow-hidden rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out select-none ${isMobile ? "" : `${project.width} ${project.height}`} ${isActive ? 'border-[#BF953F]/65 scale-105' : 'border-neutral-900 scale-100'}`}
-                  style={{
-                    boxShadow: isActive ? "0 10px 30px rgba(191, 149, 63, 0.15)" : "none",
-                    ...(isMobile ? {
-                      width: project.id === 1 || project.id === 3 ? '140px' : '180px',
-                      height: project.id === 1 || project.id === 3 ? '200px' : '125px',
-                    } : {})
-                  }}
-                >
-                  {/* Photo with zoom and blur transitions */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    <img
-                      src={project.img}
-                      alt={project.title}
-                      className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
-                        isActive ? 'scale-110 blur-0' : 'scale-100 blur-[2px] grayscale-[20%]'
-                      }`}
-                      onError={(e) => {
-                        const img = e.currentTarget;
-                        img.src = project.fallbackImg;
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent opacity-90" />
-                  </div>
+        {isMobile ? (
+          <div className="relative w-full h-[450px] overflow-hidden flex flex-col items-center justify-center select-none touch-pan-y">
+            
+            {/* 3D Coverflow Wrapper */}
+            <div 
+              className="relative w-full h-[360px] flex items-center justify-center perspective-[1000px] preserve-3d"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+            >
+              {achievementsAndProjects.map((project, index) => {
+                const offset = index - mobileIndex;
+                const isCenter = offset === 0;
+                const absOffset = Math.abs(offset);
+                
+                // Hide slides that are far away
+                if (absOffset > 2) return null;
 
-                  {/* Information Overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-between p-3 sm:p-5 z-20">
-                    <div className="flex justify-between items-start">
-                      <Badge variant="secondary" className="text-[9px] font-bold px-2 py-0.5 bg-black/80 text-[#FCF6BA] border border-[#BF953F]/15 backdrop-blur-md rounded-md uppercase tracking-wider font-space-grotesk">
-                        {project.cat}
-                      </Badge>
-                      <div className={`w-8 h-8 rounded-full bg-[#BF953F] text-black items-center justify-center transition-all duration-500 hidden sm:flex ${isActive ? 'opacity-100 rotate-0 scale-100 shadow-[0_0_10px_rgba(191,149,63,0.5)]' : 'opacity-0 -rotate-45 scale-75'}`}>
-                        <ArrowUpRight size={14} strokeWidth={2.5} />
+                // 3D Transform calculations
+                const translateX = offset * 110; // offset spacing
+                const translateZ = -absOffset * 80; // depth
+                const rotateY = offset * -25; // Y-rotation to face center
+                const scale = 1 - absOffset * 0.12; // size scale
+                const opacity = 1 - absOffset * 0.45; // opacity fade
+                const zIndex = 10 - absOffset;
+
+                return (
+                  <div
+                    key={project.id}
+                    onClick={() => {
+                      if (!isCenter) {
+                        setMobileIndex(index);
+                      }
+                    }}
+                    className="absolute w-[240px] h-[320px] rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out overflow-hidden cursor-pointer"
+                    style={{
+                      transform: `translate3d(${translateX}px, 0, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+                      opacity: opacity,
+                      zIndex: zIndex,
+                      borderColor: isCenter ? "rgba(191, 149, 63, 0.6)" : "rgba(255, 255, 255, 0.05)",
+                      boxShadow: isCenter ? "0 15px 35px rgba(191, 149, 63, 0.12)" : "none",
+                    }}
+                  >
+                    {/* Photo with zoom transition */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <img
+                        src={project.img}
+                        alt={project.title}
+                        className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
+                          isCenter ? 'scale-105' : 'scale-100'
+                        }`}
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          img.src = project.fallbackImg;
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-95" />
+                    </div>
+
+                    {/* Content Overlay */}
+                    <div className="absolute inset-0 flex flex-col justify-between p-4 z-20">
+                      <div>
+                        <Badge variant="secondary" className="text-[8px] font-bold px-1.5 py-0.5 bg-black/80 text-[#FCF6BA] border border-[#BF953F]/15 backdrop-blur-md rounded-md uppercase tracking-wider font-space-grotesk">
+                          {project.cat}
+                        </Badge>
+                      </div>
+
+                      <div className="space-y-1">
+                        <h3 className="text-xs font-bold leading-tight text-white font-space-grotesk tracking-wide">{project.title}</h3>
+                        {isCenter && (
+                          <p className="text-[9px] text-neutral-400 leading-relaxed font-light mt-1.5 transition-opacity duration-300">
+                            {project.details}
+                          </p>
+                        )}
+                        <div className={`h-0.5 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] mt-2 transition-all duration-500 ${isCenter ? 'w-full opacity-100' : 'w-0 opacity-0'}`} />
                       </div>
                     </div>
+                  </div>
+                );
+              })}
+            </div>
 
-                    <div className={`transition-all duration-500 transform ${isActive ? 'translate-y-0' : 'translate-y-4'}`}>
-                      <h3 className="text-xs sm:text-lg font-bold leading-tight text-white mb-1.5 font-space-grotesk tracking-wide">{project.title}</h3>
-                      <p className={`text-[9px] sm:text-[11px] text-neutral-400 leading-relaxed font-light overflow-hidden transition-all duration-500 ${isActive ? 'max-h-20 opacity-100 mt-1 sm:mt-2' : 'max-h-0 opacity-0'}`}>
-                        {project.details}
-                      </p>
-                      <div className={`h-0.5 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] mt-3.5 transition-all duration-500 ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0'}`} />
+            {/* Premium Indicator dots */}
+            <div className="flex justify-center space-x-1.5 mt-4">
+              {achievementsAndProjects.map((_, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => setMobileIndex(i)}
+                  className={`h-1.5 rounded-full transition-all duration-350 ${
+                    mobileIndex === i ? "w-5 bg-[#BF953F]" : "w-1.5 bg-neutral-850"
+                  }`}
+                  aria-label={`Go to slide ${i + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Instruction caption */}
+            <div className="text-[10px] text-neutral-500 tracking-widest uppercase font-semibold font-space-grotesk mt-3 animate-pulse">
+              ← SWIPE TO NAVIGATE →
+            </div>
+          </div>
+        ) : (
+          <RadialScrollGallery
+            className="!min-h-[700px] w-full"
+            baseRadius={420}
+            mobileRadius={260}
+            visiblePercentage={50}
+            scrollDuration={2200}
+          >
+            {(hoveredIndex) =>
+              achievementsAndProjects.map((project, index) => {
+                const isActive = hoveredIndex === index;
+                return (
+                  <div 
+                    key={project.id} 
+                    className={`group relative overflow-hidden rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out select-none ${project.width} ${project.height} ${isActive ? 'border-[#BF953F]/65 scale-105' : 'border-neutral-900 scale-100'}`}
+                    style={{
+                      boxShadow: isActive ? "0 10px 30px rgba(191, 149, 63, 0.15)" : "none"
+                    }}
+                  >
+                    {/* Photo with zoom and blur transitions */}
+                    <div className="absolute inset-0 overflow-hidden">
+                      <img
+                        src={project.img}
+                        alt={project.title}
+                        className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
+                          isActive ? 'scale-110 blur-0' : 'scale-100 blur-[2px] grayscale-[20%]'
+                        }`}
+                        onError={(e) => {
+                          const img = e.currentTarget;
+                          img.src = project.fallbackImg;
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent opacity-90" />
+                    </div>
+
+                    {/* Information Overlay */}
+                    <div className="absolute inset-0 flex flex-col justify-between p-5 z-20">
+                      <div className="flex justify-between items-start">
+                        <Badge variant="secondary" className="text-[9px] font-bold px-2 py-0.5 bg-black/80 text-[#FCF6BA] border border-[#BF953F]/15 backdrop-blur-md rounded-md uppercase tracking-wider font-space-grotesk">
+                          {project.cat}
+                        </Badge>
+                        <div className={`w-8 h-8 rounded-full bg-[#BF953F] text-black flex items-center justify-center transition-all duration-500 ${isActive ? 'opacity-100 rotate-0 scale-100 shadow-[0_0_10px_rgba(191,149,63,0.5)]' : 'opacity-0 -rotate-45 scale-75'}`}>
+                          <ArrowUpRight size={14} strokeWidth={2.5} />
+                        </div>
+                      </div>
+
+                      <div className={`transition-all duration-500 transform ${isActive ? 'translate-y-0' : 'translate-y-4'}`}>
+                        <h3 className="text-lg font-bold leading-tight text-white mb-1.5 font-space-grotesk tracking-wide">{project.title}</h3>
+                        <p className={`text-[11px] text-neutral-400 leading-relaxed font-light overflow-hidden transition-all duration-500 ${isActive ? 'max-h-20 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+                          {project.details}
+                        </p>
+                        <div className={`h-0.5 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] mt-3.5 transition-all duration-500 ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0'}`} />
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })
-          }
-        </RadialScrollGallery>
+                );
+              })
+            }
+          </RadialScrollGallery>
+        )}
       </section>
 
       {/* Dedicated Projects Section */}
