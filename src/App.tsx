@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import PortfolioHero from "@/components/ui/portfolio-hero";
 import { RadialScrollGallery } from "@/components/ui/portfolio-and-image-gallery";
 import CanvasParticles from "@/components/ui/canvas-particles";
@@ -228,8 +228,7 @@ export default function App() {
   const [isExiting, setIsExiting] = useState(false);
   const [hologramSweep, setHologramSweep] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [activeSlide, setActiveSlide] = useState(0);
-  const swiperRef = useRef<HTMLDivElement>(null);
+
 
   // Responsive check
   useEffect(() => {
@@ -289,7 +288,7 @@ export default function App() {
 
   // Loading Screen Animation
   useEffect(() => {
-    const duration = 4000;
+    const duration = 1800;
     const intervalTime = 30;
     const step = 100 / (duration / intervalTime);
     
@@ -299,7 +298,7 @@ export default function App() {
         if (next >= 100) {
           clearInterval(timer);
           setIsExiting(true);
-          setTimeout(() => setLoading(false), 1200);
+          setTimeout(() => setLoading(false), 600);
           return 100;
         }
         return next;
@@ -480,7 +479,7 @@ export default function App() {
 
         {/* Black exit cover overlay (fades in on exit to provide seamless transition) */}
         <div 
-          className="absolute inset-0 bg-[#020203] pointer-events-none z-25 transition-opacity duration-[1100ms] ease-in-out"
+          className="absolute inset-0 bg-[#020203] pointer-events-none z-25 transition-opacity duration-[600ms] ease-in-out"
           style={{
             opacity: isExiting ? 1 : 0,
           }}
@@ -488,7 +487,7 @@ export default function App() {
 
         {/* Layer 5: Foreground Loading Content Panel */}
         <div 
-          className="relative z-30 flex flex-col items-center justify-center transition-all duration-[900ms] ease-in-out"
+          className="relative z-30 flex flex-col items-center justify-center transition-all duration-[600ms] ease-in-out"
           style={{
             opacity: isExiting ? 0 : 1,
             transform: isExiting ? "scale(0.97)" : "scale(1)",
@@ -497,7 +496,7 @@ export default function App() {
           {/* Animated pulsating Gold Signature */}
           <div 
             className={`text-4xl font-cinzel tracking-widest bg-gold-text mb-6 font-semibold select-none transition-all duration-1000 ${
-              isExiting ? "filter blur-[4px] scale-105" : "animate-pulse-gold"
+              isExiting ? "filter blur-[4px] scale-105" : "animate-pulse"
             }`}
           >
             DHANUSH.VEL
@@ -633,152 +632,76 @@ export default function App() {
             Cinematic Highlights
           </h2>
           <p className="text-neutral-400 text-sm font-light">
-            {isMobile 
-              ? "Swipe horizontally to explore achievements, internships, and professional highlights."
-              : "Rotate the scroll gallery by scrolling vertically. Displaying achievements, internships, and photos with higher authorities."
-            }
+            Rotate the scroll gallery by scrolling vertically. Displaying achievements, internships, and photos with higher authorities.
           </p>
-          {!isMobile && (
-            <div className="animate-bounce inline-block text-xs font-bold bg-gold-text tracking-widest pt-2">
-              ↓ SCROLL TO ROTATE TERM
-            </div>
-          )}
+          <div className="animate-bounce inline-block text-xs font-bold bg-gold-text tracking-widest pt-2">
+            ↓ SCROLL TO ROTATE TERM
+          </div>
         </div>
 
         {/* Gallery */}
-        {isMobile ? (
-          <div className="relative w-full overflow-hidden">
-            <div
-              ref={swiperRef}
-              onScroll={() => {
-                if (!swiperRef.current) return;
-                const container = swiperRef.current;
-                const scrollPosition = container.scrollLeft;
-                const totalWidth = container.scrollWidth - container.clientWidth;
-                if (totalWidth <= 0) return;
-                const percentage = scrollPosition / totalWidth;
-                const index = Math.min(
-                  achievementsAndProjects.length - 1,
-                  Math.max(0, Math.round(percentage * (achievementsAndProjects.length - 1)))
-                );
-                setActiveSlide(index);
-              }}
-              className="flex gap-6 overflow-x-auto snap-x snap-mandatory px-8 pb-10 scrollbar-none max-w-full"
-              style={{
-                WebkitOverflowScrolling: "touch",
-              }}
-            >
-              {achievementsAndProjects.map((project) => (
-                <div
-                  key={project.id}
-                  className="snap-center shrink-0 w-[280px] h-[380px] group relative overflow-hidden rounded-2xl bg-black border border-neutral-900 shadow-2xl transition-all duration-300"
+        <RadialScrollGallery
+          className="!min-h-[600px] sm:!min-h-[700px] w-full"
+          baseRadius={420}
+          mobileRadius={180}
+          visiblePercentage={50}
+          scrollDuration={2200}
+        >
+          {(hoveredIndex) =>
+            achievementsAndProjects.map((project, index) => {
+              const isActive = hoveredIndex === index;
+              return (
+                <div 
+                  key={project.id} 
+                  className={`group relative overflow-hidden rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out select-none ${isMobile ? "" : `${project.width} ${project.height}`} ${isActive ? 'border-[#BF953F]/65 scale-105' : 'border-neutral-900 scale-100'}`}
+                  style={{
+                    boxShadow: isActive ? "0 10px 30px rgba(191, 149, 63, 0.15)" : "none",
+                    ...(isMobile ? {
+                      width: project.id === 1 || project.id === 3 ? '140px' : '180px',
+                      height: project.id === 1 || project.id === 3 ? '200px' : '125px',
+                    } : {})
+                  }}
                 >
-                  {/* Photo with zoom transition */}
+                  {/* Photo with zoom and blur transitions */}
                   <div className="absolute inset-0 overflow-hidden">
                     <img
                       src={project.img}
                       alt={project.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
+                        isActive ? 'scale-110 blur-0' : 'scale-100 blur-[2px] grayscale-[20%]'
+                      }`}
                       onError={(e) => {
                         const img = e.currentTarget;
                         img.src = project.fallbackImg;
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-95" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent opacity-90" />
                   </div>
 
-                  {/* Content Overlay */}
-                  <div className="absolute inset-0 flex flex-col justify-between p-5 z-20">
+                  {/* Information Overlay */}
+                  <div className="absolute inset-0 flex flex-col justify-between p-3 sm:p-5 z-20">
                     <div className="flex justify-between items-start">
                       <Badge variant="secondary" className="text-[9px] font-bold px-2 py-0.5 bg-black/80 text-[#FCF6BA] border border-[#BF953F]/15 backdrop-blur-md rounded-md uppercase tracking-wider font-space-grotesk">
                         {project.cat}
                       </Badge>
+                      <div className={`w-8 h-8 rounded-full bg-[#BF953F] text-black items-center justify-center transition-all duration-500 hidden sm:flex ${isActive ? 'opacity-100 rotate-0 scale-100 shadow-[0_0_10px_rgba(191,149,63,0.5)]' : 'opacity-0 -rotate-45 scale-75'}`}>
+                        <ArrowUpRight size={14} strokeWidth={2.5} />
+                      </div>
                     </div>
 
-                    <div>
-                      <h3 className="text-base font-bold leading-tight text-white mb-1.5 font-space-grotesk tracking-wide">{project.title}</h3>
-                      <p className="text-[11px] text-neutral-400 leading-relaxed font-light mt-2">
+                    <div className={`transition-all duration-500 transform ${isActive ? 'translate-y-0' : 'translate-y-4'}`}>
+                      <h3 className="text-xs sm:text-lg font-bold leading-tight text-white mb-1.5 font-space-grotesk tracking-wide">{project.title}</h3>
+                      <p className={`text-[9px] sm:text-[11px] text-neutral-400 leading-relaxed font-light overflow-hidden transition-all duration-500 ${isActive ? 'max-h-20 opacity-100 mt-1 sm:mt-2' : 'max-h-0 opacity-0'}`}>
                         {project.details}
                       </p>
-                      <div className="h-0.5 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] mt-3.5 w-full" />
+                      <div className={`h-0.5 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] mt-3.5 transition-all duration-500 ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0'}`} />
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* Pagination Indicators */}
-            <div className="flex justify-center space-x-2 mt-2">
-              {achievementsAndProjects.map((_, i) => (
-                <div
-                  key={i}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
-                    activeSlide === i ? "w-6 bg-[#BF953F]" : "w-1.5 bg-neutral-850"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <RadialScrollGallery
-            className="!min-h-[700px] w-full"
-            baseRadius={420}
-            mobileRadius={260}
-            visiblePercentage={50}
-            scrollDuration={2200}
-          >
-            {(hoveredIndex) =>
-              achievementsAndProjects.map((project, index) => {
-                const isActive = hoveredIndex === index;
-                return (
-                  <div 
-                    key={project.id} 
-                    className={`group relative overflow-hidden rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out select-none ${project.width} ${project.height} ${isActive ? 'border-[#BF953F]/65 scale-105' : 'border-neutral-900 scale-100'}`}
-                    style={{
-                      boxShadow: isActive ? "0 10px 30px rgba(191, 149, 63, 0.15)" : "none"
-                    }}
-                  >
-                    {/* Photo with zoom and blur transitions */}
-                    <div className="absolute inset-0 overflow-hidden">
-                      <img
-                        src={project.img}
-                        alt={project.title}
-                        className={`h-full w-full object-cover transition-transform duration-700 ease-out ${
-                          isActive ? 'scale-110 blur-0' : 'scale-100 blur-[2px] grayscale-[20%]'
-                        }`}
-                        onError={(e) => {
-                          const img = e.currentTarget;
-                          img.src = project.fallbackImg;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent opacity-90" />
-                    </div>
-
-                    {/* Information Overlay */}
-                    <div className="absolute inset-0 flex flex-col justify-between p-5 z-20">
-                      <div className="flex justify-between items-start">
-                        <Badge variant="secondary" className="text-[9px] font-bold px-2 py-0.5 bg-black/80 text-[#FCF6BA] border border-[#BF953F]/15 backdrop-blur-md rounded-md uppercase tracking-wider font-space-grotesk">
-                          {project.cat}
-                        </Badge>
-                        <div className={`w-8 h-8 rounded-full bg-[#BF953F] text-black flex items-center justify-center transition-all duration-500 ${isActive ? 'opacity-100 rotate-0 scale-100 shadow-[0_0_10px_rgba(191,149,63,0.5)]' : 'opacity-0 -rotate-45 scale-75'}`}>
-                          <ArrowUpRight size={14} strokeWidth={2.5} />
-                        </div>
-                      </div>
-
-                      <div className={`transition-all duration-500 transform ${isActive ? 'translate-y-0' : 'translate-y-4'}`}>
-                        <h3 className="text-lg font-bold leading-tight text-white mb-1.5 font-space-grotesk tracking-wide">{project.title}</h3>
-                        <p className={`text-[11px] text-neutral-400 leading-relaxed font-light overflow-hidden transition-all duration-500 ${isActive ? 'max-h-20 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-                          {project.details}
-                        </p>
-                        <div className={`h-0.5 bg-gradient-to-r from-[#BF953F] to-[#FCF6BA] mt-3.5 transition-all duration-500 ${isActive ? 'w-full opacity-100' : 'w-0 opacity-0'}`} />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })
-            }
-          </RadialScrollGallery>
-        )}
+              );
+            })
+          }
+        </RadialScrollGallery>
       </section>
 
       {/* Dedicated Projects Section */}

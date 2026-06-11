@@ -247,7 +247,7 @@ export default function PortfolioHero() {
             {isMenuOpen && (
               <div
                 ref={menuRef}
-                className="absolute top-full left-0 w-[260px] border border-neutral-800/80 shadow-2xl mt-2 ml-4 p-4 rounded-xl z-[100] bg-black/90 backdrop-blur-xl"
+                className="absolute top-full left-0 w-[240px] sm:w-[260px] border border-neutral-800/80 shadow-2xl mt-2 ml-1 sm:ml-4 p-4 rounded-xl z-[100] bg-black/90 backdrop-blur-xl"
               >
                 {menuItems.map((item) => (
                   <a
@@ -273,28 +273,28 @@ export default function PortfolioHero() {
           </div>
 
           {/* Signature DHANUSH.VEL (Cinzel high-end luxury font) */}
-          <div className="text-2xl font-cinzel tracking-wider bg-gold-text select-none font-semibold">
+          <div className="text-base sm:text-2xl font-cinzel tracking-wider bg-gold-text select-none font-semibold">
             DHANUSH.VEL
           </div>
 
           {/* Controls: Audio & Theme Toggle */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Background Music Toggle */}
             <button
               type="button"
               onClick={toggleMusic}
-              className="p-2 text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase rounded-lg border border-neutral-800/80 px-3.5 py-2 bg-neutral-950/40 backdrop-blur"
+              className="p-2 sm:px-3.5 sm:py-2 text-neutral-400 hover:text-white transition-colors flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase rounded-lg border border-neutral-800/80 bg-neutral-950/40 backdrop-blur"
               aria-label="Toggle music"
             >
               {isMusicPlaying ? (
                 <>
                   <Volume2 className="w-4 h-4 text-[#BF953F] animate-pulse" />
-                  <span className="bg-gold-text font-semibold">Audio On</span>
+                  <span className="bg-gold-text font-semibold hidden sm:inline">Audio On</span>
                 </>
               ) : (
                 <>
                   <VolumeX className="w-4 h-4" />
-                  <span>Audio Off</span>
+                  <span className="hidden sm:inline">Audio Off</span>
                 </>
               )}
             </button>
