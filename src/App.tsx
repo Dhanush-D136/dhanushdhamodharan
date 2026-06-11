@@ -691,11 +691,8 @@ export default function App() {
                   <div
                     key={project.id}
                     onClick={() => {
-                      if (isCenter) {
-                        setActiveLightboxImg({ src: project.img, title: project.title });
-                      } else {
-                        setMobileIndex(index);
-                      }
+                      setMobileIndex(index);
+                      setActiveLightboxImg({ src: project.img, title: project.title });
                     }}
                     className="absolute w-[240px] h-[320px] rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out overflow-hidden cursor-pointer"
                     style={{
