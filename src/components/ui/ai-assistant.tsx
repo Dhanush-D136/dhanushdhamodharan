@@ -20,7 +20,7 @@ const responses: Record<string, string> = {
     "Dhanush Dhamodharan (Dhanu) is a B.Tech Artificial Intelligence and Data Science undergraduate (CGPA: 8.91). He is an AI Developer, Instagram Tech Content Creator, and Placement Coordinator. He designs intelligent software and machine learning solutions.",
   
   "show his top projects": 
-    "His main projects include:\n1. **Crop Yield Prediction:** A machine learning model using satellite imagery, soil, and historical climate weather metrics.\n2. **AI Student Tracking:** A computer vision CCTV model with automated facial recognition attendance.\n3. **EduSync AI:** A comprehensive digital campus administration system.\n4. **Vel One ERP AI:** An intelligent wholesale billing, inventory, and WhatsApp invoicing platform.\n5. **DeepGuard AI:** A computer vision security analytics system for real-time threat and anomaly detection in CCTV streams.",
+    "His main projects include:\n1. **Crop Yield Prediction:** A machine learning model using satellite imagery, soil, and historical climate weather metrics.\n2. **AI Student Tracking:** A computer vision CCTV model with automated facial recognition attendance.\n3. **EduSync AI:** A comprehensive digital campus administration system.\n4. **Vel One ERP AI:** An intelligent wholesale billing, inventory, and WhatsApp invoicing platform.",
   
   "his achievements?": 
     "Key milestones:\n- B.Tech CGPA of **8.91**.\n- Completed **Computer Vision Internship** at NSIC (National Small Industries Corp).\n- Class Representative & Engineering Placement Coordinator.\n- Certified in **Azure AI**, **Oracle Cloud AI**, and **SageMaker**.",

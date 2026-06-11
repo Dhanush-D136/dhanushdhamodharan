@@ -807,32 +807,6 @@ export default function App() {
               ))}
             </div>
           </div>
-
-          {/* Project 5 */}
-          <div className="p-8 rounded-3xl border border-neutral-900 bg-neutral-950/20 hover:border-[#BF953F]/25 hover:bg-black/35 transition-all duration-500 flex flex-col justify-between group relative overflow-hidden md:col-span-2">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#BF953F]/10 to-transparent blur-2xl pointer-events-none" />
-            <div className="space-y-4">
-              <div className="flex justify-between items-start">
-                <span className="text-[10px] font-mono tracking-widest text-[#FCF6BA] font-bold uppercase bg-[#BF953F]/5 border border-[#BF953F]/10 px-2.5 py-1 rounded">
-                  Computer Vision
-                </span>
-                <span className="text-xs text-neutral-500 font-semibold font-space-grotesk">June 2026</span>
-              </div>
-              <h3 className="text-xl sm:text-2xl font-bold text-white font-space-grotesk group-hover:text-[#FCF6BA] transition-colors leading-tight">
-                DeepGuard AI – Real-Time Threat & Anomaly Detection System
-              </h3>
-              <p className="text-neutral-400 text-xs sm:text-sm font-light leading-relaxed">
-                An intelligent security analytics system leveraging YOLOv8 and deep learning pipelines to identify unauthorized entries, fire hazards, and anomalies in real-time CCTV feeds with automated alerts.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2 pt-6 border-t border-neutral-900 mt-6">
-              {["YOLOv8", "OpenCV", "Deep Learning", "Automated Alerts"].map((tag) => (
-                <span key={tag} className="text-[9px] uppercase tracking-wider font-bold text-neutral-400 bg-neutral-900/60 border border-neutral-800/80 px-2 py-0.5 rounded">
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
