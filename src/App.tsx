@@ -602,7 +602,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard label="College CGPA" value={8.91} decimals={2} trigger={triggerStats} />
           <StatCard label="Instagram Tech Reach" value={2.5} decimals={1} suffix=" Lakh+" trigger={triggerStats} />
-          <StatCard label="Advanced AI Projects" value={3} trigger={triggerStats} />
+          <StatCard label="Advanced AI Projects" value={4} trigger={triggerStats} />
           <StatCard label="Professional Credentials" value={7} trigger={triggerStats} />
         </div>
       </section>
