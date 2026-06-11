@@ -229,6 +229,7 @@ export default function App() {
   const [hologramSweep, setHologramSweep] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileIndex, setMobileIndex] = useState(0);
+  const [activeLightboxImg, setActiveLightboxImg] = useState<{ src: string; title: string } | null>(null);
   const touchStart = useRef<number | null>(null);
 
 
@@ -690,7 +691,9 @@ export default function App() {
                   <div
                     key={project.id}
                     onClick={() => {
-                      if (!isCenter) {
+                      if (isCenter) {
+                        setActiveLightboxImg({ src: project.img, title: project.title });
+                      } else {
                         setMobileIndex(index);
                       }
                     }}
@@ -758,8 +761,13 @@ export default function App() {
             </div>
 
             {/* Instruction caption */}
-            <div className="text-[10px] text-neutral-500 tracking-widest uppercase font-semibold font-space-grotesk mt-3 animate-pulse">
-              ← SWIPE TO NAVIGATE →
+            <div className="flex flex-col items-center gap-1 mt-3">
+              <div className="text-[10px] text-neutral-500 tracking-widest uppercase font-semibold font-space-grotesk animate-pulse">
+                ← SWIPE TO NAVIGATE →
+              </div>
+              <div className="text-[9px] text-[#BF953F]/70 tracking-widest uppercase font-semibold font-space-grotesk">
+                TAP CENTER TO VIEW FULL PHOTO
+              </div>
             </div>
           </div>
         ) : (
@@ -1332,6 +1340,72 @@ export default function App() {
 
         </div>
       </footer>
+
+      {/* ── Mobile Fullscreen Lightbox ── */}
+      {activeLightboxImg && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center"
+          style={{ background: "rgba(0,0,0,0.96)" }}
+          onClick={() => setActiveLightboxImg(null)}
+        >
+          {/* Subtle gold border glow frame */}
+          <div
+            className="relative w-full h-full flex items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setActiveLightboxImg(null)}
+              className="absolute top-6 right-6 z-50 w-10 h-10 rounded-full flex items-center justify-center text-white hover:text-[#FCF6BA] transition-colors"
+              style={{
+                background: "rgba(0,0,0,0.7)",
+                border: "1px solid rgba(191,149,63,0.5)",
+                backdropFilter: "blur(8px)",
+              }}
+              aria-label="Close"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                <line x1="18" y1="6" x2="6" y2="18"/>
+                <line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+
+            {/* Full image */}
+            <img
+              src={activeLightboxImg.src}
+              alt={activeLightboxImg.title}
+              className="max-w-full max-h-full object-contain"
+              style={{
+                borderRadius: "12px",
+                boxShadow: "0 0 60px rgba(191,149,63,0.18)",
+                border: "1px solid rgba(191,149,63,0.25)",
+                animation: "lightboxFadeIn 0.28s cubic-bezier(0.4,0,0.2,1)",
+              }}
+            />
+
+            {/* Title bar at bottom */}
+            <div
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase font-space-grotesk text-[#FCF6BA]"
+              style={{
+                background: "rgba(0,0,0,0.7)",
+                border: "1px solid rgba(191,149,63,0.3)",
+                backdropFilter: "blur(10px)",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {activeLightboxImg.title}
+            </div>
+          </div>
+
+          {/* Keyframe animation injected inline */}
+          <style>{`
+            @keyframes lightboxFadeIn {
+              from { opacity: 0; transform: scale(0.92); }
+              to   { opacity: 1; transform: scale(1); }
+            }
+          `}</style>
+        </div>
+      )}
 
     </div>
   );
