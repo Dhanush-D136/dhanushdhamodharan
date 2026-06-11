@@ -781,7 +781,8 @@ export default function App() {
                 return (
                   <div 
                     key={project.id} 
-                    className={`group relative overflow-hidden rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out select-none ${project.width} ${project.height} ${isActive ? 'border-[#BF953F]/65 scale-105' : 'border-neutral-900 scale-100'}`}
+                    onClick={() => setActiveLightboxImg({ src: project.img, title: project.title })}
+                    className={`group relative overflow-hidden rounded-2xl bg-black border shadow-2xl transition-all duration-500 ease-out select-none cursor-pointer ${project.width} ${project.height} ${isActive ? 'border-[#BF953F]/65 scale-105' : 'border-neutral-900 scale-100'}`}
                     style={{
                       boxShadow: isActive ? "0 10px 30px rgba(191, 149, 63, 0.15)" : "none"
                     }}
