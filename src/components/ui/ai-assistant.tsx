@@ -91,7 +91,7 @@ export default function AIAssistant() {
       {/* Holographic Assistant Terminal */}
       {isOpen && (
         <div 
-          className="fixed bottom-24 right-6 w-[340px] sm:w-[380px] h-[480px] rounded-2xl border border-neutral-800 shadow-2xl overflow-hidden flex flex-col z-[100] bg-neutral-950/90 backdrop-blur-xl animate-float-slow"
+          className="fixed bottom-24 right-4 left-4 w-auto sm:left-auto sm:right-6 sm:w-[380px] h-[480px] rounded-2xl border border-neutral-800 shadow-2xl overflow-hidden flex flex-col z-[100] bg-neutral-950/90 backdrop-blur-xl animate-float-slow"
           style={{
             boxShadow: "0 20px 50px rgba(19, 24, 48, 0.4), inset 0 0 20px rgba(191, 149, 63, 0.05)"
           }}

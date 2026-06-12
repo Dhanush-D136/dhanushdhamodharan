@@ -1217,6 +1217,30 @@ export default function App() {
                 </div>
                 <ArrowUpRight size={16} className="text-neutral-500 group-hover:text-white transition-colors" />
               </a>
+
+              <a 
+                href="/Dhanush Dhamodharan Vel Resume.pdf"
+                download="Dhanush Dhamodharan Vel Resume.pdf"
+                className="w-full flex items-center justify-between p-5 rounded-2xl border border-[#BF953F]/20 bg-[#BF953F]/5 hover:border-[#BF953F]/40 hover:bg-[#BF953F]/10 transition-all duration-300 text-left group animate-pulse-gold"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2.5 rounded-xl bg-neutral-900 border border-[#BF953F]/20 text-[#BF953F] group-hover:scale-110 transition-transform duration-300">
+                    <Award size={20} />
+                  </div>
+                  <div>
+                    <span className="text-[9px] text-neutral-500 uppercase tracking-widest font-bold">Curriculum Vitae</span>
+                    <p className="text-sm font-bold text-white mt-0.5">Dhanush Dhamodharan Vel Resume.pdf</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-[#BF953F] group-hover:text-white transition-colors">
+                  <span className="hidden sm:inline">Download</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-[#BF953F] group-hover:text-white transition-colors">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                </div>
+              </a>
             </div>
           </div>
 
@@ -1302,7 +1326,19 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex gap-6 text-xs font-bold font-space-grotesk tracking-widest uppercase">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-xs font-bold font-space-grotesk tracking-widest uppercase">
+            <a
+              href="/Dhanush Dhamodharan Vel Resume.pdf"
+              download="Dhanush Dhamodharan Vel Resume.pdf"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#BF953F]/20 bg-[#BF953F]/5 text-white hover:text-white hover:border-[#BF953F]/40 hover:bg-[#BF953F]/10 transition-all duration-300 animate-pulse-gold font-bold shadow-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-3.5 h-3.5 text-[#BF953F]">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Download Resume</span>
+            </a>
             <a 
               href="https://github.com/Dhanush-D136" 
               target="_blank" 

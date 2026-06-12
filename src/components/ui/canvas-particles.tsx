@@ -8,6 +8,7 @@ interface Particle {
   vy: number;
   vz: number;
   color: string;
+  colorIndex: number;
   size: number;
 }
 
@@ -39,11 +40,20 @@ export default function CanvasParticles() {
       "rgba(96, 165, 250, 0.3)",   // Light Blue
     ];
 
+    const lightColors = [
+      "rgba(179, 135, 40, 0.65)",   // Darker Gold
+      "rgba(191, 149, 63, 0.7)",    // Gold
+      "rgba(140, 95, 20, 0.6)",     // Richer Gold
+      "rgba(29, 78, 216, 0.45)",    // Deep Blue
+      "rgba(37, 99, 235, 0.5)",     // Vibrant Blue
+    ];
+
     // Initialize particles in 3D sphere shape
     for (let i = 0; i < particleCount; i++) {
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
       const r = 150 + Math.random() * 250; // Distance from center
+      const colorIndex = Math.floor(Math.random() * colors.length);
 
       particles.push({
         x: r * Math.sin(phi) * Math.cos(theta),
@@ -52,7 +62,8 @@ export default function CanvasParticles() {
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
         vz: (Math.random() - 0.5) * 0.4,
-        color: colors[Math.floor(Math.random() * colors.length)],
+        color: colors[colorIndex],
+        colorIndex,
         size: 1.2 + Math.random() * 1.8,
       });
     }
@@ -86,7 +97,10 @@ export default function CanvasParticles() {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Radial background glow (Deep space cosmic look)
+      // Check if light mode is active
+      const isLight = document.documentElement.classList.contains("light");
+
+      // Radial background glow (Deep space cosmic look / premium white look)
       const grad = ctx.createRadialGradient(
         width / 2,
         height / 2,
@@ -95,9 +109,15 @@ export default function CanvasParticles() {
         height / 2,
         Math.max(width, height)
       );
-      grad.addColorStop(0, "rgba(8, 10, 24, 1)");
-      grad.addColorStop(0.5, "rgba(2, 2, 4, 1)");
-      grad.addColorStop(1, "rgba(0, 0, 0, 1)");
+      if (isLight) {
+        grad.addColorStop(0, "rgba(253, 251, 247, 1)");
+        grad.addColorStop(0.6, "rgba(250, 250, 250, 1)");
+        grad.addColorStop(1, "rgba(240, 240, 240, 1)");
+      } else {
+        grad.addColorStop(0, "rgba(8, 10, 24, 1)");
+        grad.addColorStop(0.5, "rgba(2, 2, 4, 1)");
+        grad.addColorStop(1, "rgba(0, 0, 0, 1)");
+      }
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, width, height);
 
@@ -144,14 +164,15 @@ export default function CanvasParticles() {
         const sx = p.x * scale + width / 2;
         const sy = p.y * scale + height / 2;
 
-        projected.push({ sx, sy, z: p.z, color: p.color });
+        const pColor = isLight ? lightColors[p.colorIndex] : p.color;
+        projected.push({ sx, sy, z: p.z, color: pColor });
 
         // Draw particle node
         ctx.beginPath();
         ctx.arc(sx, sy, p.size * scale * 0.4, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = isActiveGold(p.color) ? 10 : 0;
+        ctx.fillStyle = pColor;
+        ctx.shadowColor = pColor;
+        ctx.shadowBlur = isActiveGold(pColor) ? (isLight ? 4 : 10) : 0;
         ctx.fill();
         ctx.shadowBlur = 0; // Reset
       }
@@ -168,13 +189,15 @@ export default function CanvasParticles() {
 
           // Connect if they are close enough in 2D space
           if (dist < 90) {
-            const alpha = (1 - dist / 90) * 0.12;
+            const alpha = isLight ? (1 - dist / 90) * 0.18 : (1 - dist / 90) * 0.12;
             ctx.beginPath();
             ctx.moveTo(p1.sx, p1.sy);
             ctx.lineTo(p2.sx, p2.sy);
             
-            // Set gradient line between nodes
-            ctx.strokeStyle = `rgba(191, 149, 63, ${alpha})`;
+            // Set line color
+            ctx.strokeStyle = isLight 
+              ? `rgba(179, 135, 40, ${alpha})`
+              : `rgba(191, 149, 63, ${alpha})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }

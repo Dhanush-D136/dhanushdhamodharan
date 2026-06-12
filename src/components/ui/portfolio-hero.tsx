@@ -77,7 +77,13 @@ const BlurText: React.FC<BlurTextProps> = ({
 };
 
 export default function PortfolioHero() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      return saved !== "light";
+    }
+    return true;
+  });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   
@@ -94,7 +100,6 @@ export default function PortfolioHero() {
     audioRef.current = audio;
 
     const startAudio = () => {
-      // Trigger smooth volume fade-in
       audio.play()
         .then(() => {
           setIsMusicPlaying(true);
@@ -109,9 +114,18 @@ export default function PortfolioHero() {
       window.removeEventListener("keydown", startAudio);
     };
 
-    window.addEventListener("click", startAudio);
-    window.addEventListener("scroll", startAudio);
-    window.addEventListener("keydown", startAudio);
+    // Attempt direct autoplay on mount
+    audio.play()
+      .then(() => {
+        setIsMusicPlaying(true);
+        fadeVolume(1.0, 1500);
+      })
+      .catch((err) => {
+        console.log("Direct autoplay blocked, fallback to interaction listeners.", err);
+        window.addEventListener("click", startAudio);
+        window.addEventListener("scroll", startAudio);
+        window.addEventListener("keydown", startAudio);
+      });
 
     return () => {
       audio.pause();
@@ -168,7 +182,16 @@ export default function PortfolioHero() {
   };
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
+    const saved = localStorage.getItem("theme");
+    const initDark = saved !== "light";
+    setIsDark(initDark);
+    if (initDark) {
+      document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
+    }
   }, []);
 
   useEffect(() => {
@@ -191,10 +214,13 @@ export default function PortfolioHero() {
   const toggleTheme = () => {
     const newTheme = !isDark;
     setIsDark(newTheme);
+    localStorage.setItem("theme", newTheme ? "dark" : "light");
     if (newTheme) {
       document.documentElement.classList.add("dark");
+      document.documentElement.classList.remove("light");
     } else {
       document.documentElement.classList.remove("dark");
+      document.documentElement.classList.add("light");
     }
   };
 
@@ -220,7 +246,7 @@ export default function PortfolioHero() {
     >
       {/* Header */}
       <header 
-        className="fixed top-0 left-0 right-0 z-50 px-6 py-6 backdrop-blur-[2px] transition-all duration-300"
+        className="fixed top-0 left-0 right-0 z-50 px-4 py-4 sm:px-6 sm:py-6 backdrop-blur-[2px] transition-all duration-300"
         style={{
           background: isDark 
             ? "linear-gradient(to bottom, rgba(2, 2, 3, 0.95) 0%, rgba(2, 2, 3, 0.6) 60%, transparent 100%)"
@@ -273,7 +299,7 @@ export default function PortfolioHero() {
           </div>
 
           {/* Signature DHANUSH.VEL (Cinzel high-end luxury font) */}
-          <div className="text-base sm:text-2xl font-cinzel tracking-wider bg-gold-text select-none font-semibold">
+          <div className="text-sm sm:text-2xl font-cinzel tracking-wider bg-gold-text select-none font-semibold">
             DHANUSH.VEL
           </div>
 
@@ -333,7 +359,7 @@ export default function PortfolioHero() {
                 delay={100}
                 animateBy="words"
                 direction="top"
-                className="font-bold text-[60px] sm:text-[100px] md:text-[140px] lg:text-[170px] xl:text-[195px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap bg-gold-text font-space-grotesk"
+                className="font-bold text-[13vw] sm:text-[100px] md:text-[140px] lg:text-[170px] xl:text-[195px] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap bg-gold-text font-space-grotesk"
               />
             </div>
             
@@ -344,7 +370,7 @@ export default function PortfolioHero() {
                 delay={100}
                 animateBy="words"
                 direction="top"
-                className="font-bold text-[36px] sm:text-[62px] md:text-[88px] lg:text-[108px] xl:text-[124px] leading-[0.85] tracking-tighter uppercase justify-center whitespace-nowrap bg-gold-text font-space-grotesk"
+                className="font-bold text-[7.5vw] sm:text-[62px] md:text-[88px] lg:text-[108px] xl:text-[124px] leading-[0.85] tracking-tighter uppercase justify-center whitespace-nowrap bg-gold-text font-space-grotesk"
               />
             </div>
 
