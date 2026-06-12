@@ -1,0 +1,20 @@
+[
+  {
+    "intent": "certifications_list",
+    "category": "Certifications",
+    "sample_questions": [
+      "What certifications do you have?",
+      "Are you certified in AI?"
+    ],
+    "alternate_phrasings": [
+      "Show me your credentials",
+      "List your certifications",
+      "Do you have any cloud certificates?",
+      "What exams or courses have you completed?",
+      "What are your credentials?"
+    ],
+    "answer": "I hold several professional AI and cloud certifications:\n1. **Azure AI Fundamentals: Machine Learning** (Infosys Springboard, 2026)\n2. **Oracle Cloud Infrastructure AI Foundations** (Infosys Springboard, 2026)\n3. **Amazon SageMaker System Specialist** (Udemy, 2026)\n4. **Introduction to Machine Learning Core** (Infosys Springboard, 2026)\n5. **Databases and SQL for Data Science** (IBM/Coursera, 2025)\n6. **Data Science & Analytics Foundations** (HP LIFE, 2025)\n7. **Enhancing Soft Skills and Personality** (NPTEL-Swayam, 2025)",
+    "tags": ["certifications", "certificates", "credentials", "azure", "oracle", "sagemaker", "ibm", "infosys", "springboard"],
+    "priority": 5
+  }
+]

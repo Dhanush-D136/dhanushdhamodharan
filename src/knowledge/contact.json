@@ -1,0 +1,21 @@
+[
+  {
+    "intent": "contact_info",
+    "category": "Contact",
+    "sample_questions": [
+      "How can I contact you?",
+      "What is your email address?"
+    ],
+    "alternate_phrasings": [
+      "How do I reach Dhanush?",
+      "Can I get your phone number or WhatsApp?",
+      "Show me your social links",
+      "Give me your LinkedIn or GitHub profiles",
+      "Where are you located?",
+      "How to collaborate with you?"
+    ],
+    "answer": "You can connect with me instantly via:\n- **Email:** dhanushsinger872@gmail.com\n- **WhatsApp & Call:** +91 9994726807\n- **LinkedIn:** [Dhanush Dhamodharan](https://linkedin.com/in/dhanush-dhamodharan)\n- **GitHub:** [Dhanush-D136](https://github.com/Dhanush-D136)\nFeel free to write an email or click the WhatsApp chip to chat!",
+    "tags": ["contact", "email", "phone", "whatsapp", "linkedin", "github", "reach", "collaborate", "socials"],
+    "priority": 5
+  }
+]

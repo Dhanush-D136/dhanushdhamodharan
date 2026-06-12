@@ -1,0 +1,116 @@
+[
+  {
+    "intent": "skills_overview",
+    "category": "Skills",
+    "sample_questions": [
+      "What are your skills?",
+      "What technologies do you know?"
+    ],
+    "alternate_phrasings": [
+      "Show me your tech stack",
+      "What are your core competencies?",
+      "What programming languages do you speak?",
+      "What tools do you use?",
+      "List your skills",
+      "What are you good at?"
+    ],
+    "answer": "My technical skills are categorized into:\n- **Programming Languages:** Python, Java, C.\n- **AI Engineering:** OpenCV, Computer Vision, CNNs, Image Analysis, Amazon SageMaker.\n- **Databases:** MySQL & Database Engineering, SQL for Data Science.\n- **Data Science:** Statistics, Data Analytics Foundations.\n- **Creative & Professional:** Digital Content Creation, Leadership & Strategy.",
+    "tags": ["skills", "languages", "tech", "technologies", "tools", "competencies", "experience"],
+    "priority": 5
+  },
+  {
+    "intent": "ai_data_science",
+    "category": "AI & Data Science",
+    "sample_questions": [
+      "Why did you choose AI and Data Science?",
+      "Tell me about your AI and Data Science focus"
+    ],
+    "alternate_phrasings": [
+      "What is your interest in AI & DS?",
+      "Why study Artificial Intelligence?",
+      "How do you view Data Science?"
+    ],
+    "answer": "I chose Artificial Intelligence and Data Science because I believe AI is the most powerful tool for engineering the future. Bridging the gap between raw data, machine learning models, and everyday human experiences allows us to solve complex real-world challenges efficiently.",
+    "tags": ["ai", "data science", "aids", "artificial intelligence", "why ai"],
+    "priority": 4
+  },
+  {
+    "intent": "machine_learning",
+    "category": "Machine Learning",
+    "sample_questions": [
+      "Do you know Machine Learning?",
+      "What ML models have you worked with?"
+    ],
+    "alternate_phrasings": [
+      "Explain your ML experience",
+      "Which ML algorithms do you use?",
+      "Have you built ML models?"
+    ],
+    "answer": "I have strong foundations in Machine Learning, including model training, validation, and hyperparameter tuning. I specialize in using platforms like Amazon SageMaker and libraries like Scikit-Learn to build predictive models, such as my Crop Yield Prediction system which analyzes climatic, soil, and historical data.",
+    "tags": ["ml", "machine learning", "sagemaker", "models", "algorithms", "predictive"],
+    "priority": 4
+  },
+  {
+    "intent": "computer_vision",
+    "category": "Computer Vision",
+    "sample_questions": [
+      "What is your Computer Vision experience?",
+      "Do you work with OpenCV?"
+    ],
+    "alternate_phrasings": [
+      "Tell me about your CV projects",
+      "Have you done image processing?",
+      "What do you do in computer vision?"
+    ],
+    "answer": "I have practical expertise in Computer Vision, honed during my internship at NSIC (Govt of India). I use Python, OpenCV, and CNNs to build models for CCTV camera analytics, automated facial recognition, and object tracking.",
+    "tags": ["computer vision", "opencv", "cnn", "image processing", "facial recognition", "tracking", "cv"],
+    "priority": 4
+  },
+  {
+    "intent": "python_skill",
+    "category": "Python",
+    "sample_questions": [
+      "Do you write Python?",
+      "How good are you at Python?"
+    ],
+    "alternate_phrasings": [
+      "Tell me about your Python background",
+      "Is Python your primary language?",
+      "What Python libraries do you use?"
+    ],
+    "answer": "Yes, Python is my primary programming language. I use it for machine learning (Scikit-Learn, SageMaker), computer vision (OpenCV), database integration, data processing, and scripting automated tasks.",
+    "tags": ["python", "programming", "scripting", "language", "dev"],
+    "priority": 4
+  },
+  {
+    "intent": "java_skill",
+    "category": "Java",
+    "sample_questions": [
+      "Do you know Java?",
+      "What is your Java experience?"
+    ],
+    "alternate_phrasings": [
+      "Have you coded in Java?",
+      "How proficient are you in Java?"
+    ],
+    "answer": "I am proficient in Java programming. I understand object-oriented programming concepts, data structures, and algorithms in Java, and use it to build robust backend logics and software foundations.",
+    "tags": ["java", "oop", "programming", "language", "backend"],
+    "priority": 4
+  },
+  {
+    "intent": "sql_skill",
+    "category": "SQL",
+    "sample_questions": [
+      "What are your SQL skills?",
+      "Do you know database management?"
+    ],
+    "alternate_phrasings": [
+      "Tell me about your MySQL experience",
+      "Can you write SQL queries?",
+      "Have you worked with databases?"
+    ],
+    "answer": "I have a solid foundation in SQL and Database Engineering, certified by IBM (Coursera). I write efficient queries in MySQL, design relational schemas, manage database operations, and integrate databases with backend services.",
+    "tags": ["sql", "mysql", "database", "queries", "ibm", "relational"],
+    "priority": 4
+  }
+]

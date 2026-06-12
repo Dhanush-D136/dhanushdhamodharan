@@ -1,0 +1,136 @@
+[
+  {
+    "intent": "projects_overview",
+    "category": "Projects",
+    "sample_questions": [
+      "What have you built?",
+      "Show me your work"
+    ],
+    "alternate_phrasings": [
+      "What are your top projects?",
+      "Can I see your portfolio projects?",
+      "List your engineering projects",
+      "What did you build?",
+      "Tell me about your software developments",
+      "Do you have project experience?"
+    ],
+    "answer": "I have built several advanced projects leveraging AI, Machine Learning, and Enterprise architectures:\n1. **Crop Yield Prediction:** A ML and satellite data model predicting productivity.\n2. **AI Student Tracking:** CCTV computer vision attendance tracking.\n3. **EduSync AI:** A digital campus administration dashboard.\n4. **VelOne ERP AI:** A wholesale billing, inventory, and WhatsApp invoicing platform.",
+    "tags": ["projects", "work", "portfolio", "development", "github", "build", "applications"],
+    "priority": 5,
+    "follow_ups": [
+      {
+        "keywords": ["crop", "yield", "prediction", "best", "favorite"],
+        "answer": "My favorite project is the Crop Yield Prediction system. It predicts agricultural productivity at a district level by analyzing weather parameters, soil indexes, and historical records. Would you like to know what technologies I used?"
+      },
+      {
+        "keywords": ["student", "tracking", "cctv", "vision"],
+        "answer": "The AI Student Tracking system uses OpenCV and Convolutional Neural Networks to recognize faces from live CCTV feeds and automate attendance. Would you like to know the stack or the goal of this project?"
+      },
+      {
+        "keywords": ["edusync", "campus", "academic"],
+        "answer": "EduSync AI is an academic hub that streamlines student databases, timetables, and notifications. Let me know if you want to hear about its features!"
+      },
+      {
+        "keywords": ["velone", "erp", "billing"],
+        "answer": "VelOne ERP AI is an enterprise billing system. It manages wholesale stock and prints/sends digital invoices directly via WhatsApp APIs."
+      }
+    ]
+  },
+  {
+    "intent": "crop_yield_project",
+    "category": "Crop Yield Prediction",
+    "sample_questions": [
+      "Explain Crop Yield Prediction",
+      "Tell me about your crop yield project"
+    ],
+    "alternate_phrasings": [
+      "How does the satellite AI model work?",
+      "What is the Crop Yield Prediction system?",
+      "Detail your agricultural AI project",
+      "Explain the ASTRAVA Hackathon project"
+    ],
+    "answer": "My Crop Yield Prediction system is a machine learning model built to estimate agricultural productivity using satellite data, historical records, soil parameters, and climate/weather metrics. It aims to optimize harvests and help farmers make informed decisions.",
+    "tags": ["crop yield", "agriculture", "satellite", "prediction", "weather", "soil", "ml", "crop"],
+    "priority": 5,
+    "follow_ups": [
+      {
+        "keywords": ["technology", "technologies", "tech", "languages", "language", "tools", "stack", "used", "built"],
+        "answer": "For the Crop Yield Prediction system, I used Python, Scikit-Learn for training regressor models, pandas/numpy for soil and climatic data processing, and integrated satellite data metrics to output district-level productivity predictions."
+      },
+      {
+        "keywords": ["why", "reason", "motivation", "purpose"],
+        "answer": "I built it because agriculture faces high unpredictability due to climate change. Using ML to analyze soil indices and historical weather variables can predict yield accurately, reducing risks for farmers."
+      }
+    ]
+  },
+  {
+    "intent": "student_tracking_project",
+    "category": "AI Student Tracking",
+    "sample_questions": [
+      "Explain the AI Student Tracking system",
+      "What is the Student Tracking CCTV project?"
+    ],
+    "alternate_phrasings": [
+      "How does your facial recognition attendance work?",
+      "Tell me about the CCTV tracker",
+      "What is the student CCTV camera project?"
+    ],
+    "answer": "The AI Student Tracking CCTV system is a computer vision project that automates attendance logging. It processes live streams from CCTV cameras using Convolutional Neural Networks (CNNs) to recognize and register students in real-time, matching them with the database.",
+    "tags": ["student tracking", "cctv", "attendance", "face recognition", "opencv", "cnn", "tracking"],
+    "priority": 5,
+    "follow_ups": [
+      {
+        "keywords": ["technology", "technologies", "tech", "languages", "language", "tools", "stack", "used", "built"],
+        "answer": "I built the AI Student Tracking system using Python, OpenCV for image preprocessing and video stream handling, and Deep Learning (CNNs) for facial embedding extraction and matching."
+      },
+      {
+        "keywords": ["accuracy", "performance", "realtime", "cctv"],
+        "answer": "The system runs in real-time on standard camera streams. I utilized pre-trained facial detection pipelines and fine-tuned embeddings to achieve high accuracy even in varying lighting and angles."
+      }
+    ]
+  },
+  {
+    "intent": "edusync_project",
+    "category": "EduSync AI",
+    "sample_questions": [
+      "What is EduSync AI?",
+      "Explain the EduSync project"
+    ],
+    "alternate_phrasings": [
+      "Tell me about your digital campus administration",
+      "How does EduSync help college administration?",
+      "Explain the details of EduSync"
+    ],
+    "answer": "EduSync AI is a comprehensive digital campus administration system. It streamlines college operations by managing student profiles, class timetables, attendance tracking, and internal updates in one centralized interactive hub.",
+    "tags": ["edusync", "campus", "administration", "college", "hub", "database"],
+    "priority": 5,
+    "follow_ups": [
+      {
+        "keywords": ["technology", "technologies", "tech", "languages", "language", "tools", "stack", "used", "built"],
+        "answer": "EduSync AI is built using web technologies (HTML, CSS, JavaScript) for the frontend, a Node.js/Express backend for API routing, and MySQL for secure relational student database management."
+      }
+    ]
+  },
+  {
+    "intent": "velone_erp_project",
+    "category": "VelOne ERP AI",
+    "sample_questions": [
+      "What is VelOne ERP AI?",
+      "Explain VelOne ERP"
+    ],
+    "alternate_phrasings": [
+      "Tell me about the wholesale billing app",
+      "How does the WhatsApp invoicing work?",
+      "Explain the inventory billing system"
+    ],
+    "answer": "VelOne ERP AI is an intelligent wholesale billing and inventory management platform. It automates inventory updates, prints receipts, and dispatches digital invoices directly to clients' WhatsApp numbers using message automation APIs.",
+    "tags": ["velone", "erp", "billing", "whatsapp", "invoices", "inventory", "wholesale"],
+    "priority": 5,
+    "follow_ups": [
+      {
+        "keywords": ["technology", "technologies", "tech", "languages", "language", "tools", "stack", "used", "built"],
+        "answer": "VelOne ERP AI is engineered with JavaScript (Node.js) for automation, MySQL for managing stocks and transaction records, and integrates third-party WhatsApp Business/automation APIs for instant invoice delivery."
+      }
+    ]
+  }
+]

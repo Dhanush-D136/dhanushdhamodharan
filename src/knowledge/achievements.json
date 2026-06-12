@@ -1,0 +1,36 @@
+[
+  {
+    "intent": "achievements_overview",
+    "category": "Achievements",
+    "sample_questions": [
+      "What are your achievements?",
+      "List your milestones"
+    ],
+    "alternate_phrasings": [
+      "What are your key accomplishments?",
+      "What have you won or achieved?",
+      "Tell me about your academic successes",
+      "Show me your records"
+    ],
+    "answer": "My major achievements include:\n- Maintaining an outstanding B.Tech CGPA of **8.91**.\n- Completing a **Computer Vision Internship** at NSIC (National Small Industries Corporation, Govt of India).\n- Serving as the elected **Class Representative & Placement Coordinator**.\n- Earning professional certifications in **Azure AI**, **Oracle Cloud AI**, and **SageMaker**.",
+    "tags": ["achievements", "milestones", "accomplishments", "success", "academic", "gpa", "internship", "certificates"],
+    "priority": 5
+  },
+  {
+    "intent": "leadership_details",
+    "category": "Leadership",
+    "sample_questions": [
+      "Tell me about your leadership roles",
+      "Are you a coordinator?"
+    ],
+    "alternate_phrasings": [
+      "What extra activities do you do?",
+      "What is your role as a Class Representative?",
+      "Tell me about your placement coordinator work",
+      "Explain your leadership experience"
+    ],
+    "answer": "I serve as the Class Representative and the Engineering Placement Coordinator. In these roles, I facilitate communication between students and faculty, manage organizational logistics during campus recruitment drives, and conduct academic awareness sessions, such as explaining the mechanics of VEL TECH's NEOPAT learning portal.",
+    "tags": ["leadership", "class representative", "coordinator", "placement", "organizer", "neopat", "vel tech"],
+    "priority": 5
+  }
+]

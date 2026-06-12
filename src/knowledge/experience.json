@@ -1,0 +1,37 @@
+[
+  {
+    "intent": "internship_details",
+    "category": "Internship",
+    "sample_questions": [
+      "Tell me about your internship",
+      "Where did you work?"
+    ],
+    "alternate_phrasings": [
+      "What is your work experience?",
+      "Have you worked as an intern?",
+      "Explain your internship at NSIC",
+      "Do you have professional experience?",
+      "Tell me about your time at the Government of India agency"
+    ],
+    "answer": "I completed a Computer Vision Internship at NSIC (National Small Industries Corporation, Govt of India). During my tenure, I built convolutional neural network (CNN) models and integrated real-time object tracking algorithms using OpenCV for CCTV video stream analytics.",
+    "tags": ["internship", "experience", "work", "nsic", "government", "cctv", "opencv", "cnn"],
+    "priority": 5
+  },
+  {
+    "intent": "freelancing_details",
+    "category": "Freelancing",
+    "sample_questions": [
+      "Are you available for freelance work?",
+      "Do you do freelancing?"
+    ],
+    "alternate_phrasings": [
+      "Can I hire you for a project?",
+      "What kind of freelance services do you offer?",
+      "Can you build AI applications for me?",
+      "Do you work as a contractor?"
+    ],
+    "answer": "Yes! I am open to freelance opportunities. I design and build custom machine learning systems, computer vision tools (object tracking, facial recognition), database management setups, and web integrations like WhatsApp invoicing APIs. If you have an idea or software requirement, feel free to reach out!",
+    "tags": ["freelancing", "hire", "work", "projects", "freelancer", "services", "contract"],
+    "priority": 4
+  }
+]

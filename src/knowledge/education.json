@@ -1,0 +1,22 @@
+[
+  {
+    "intent": "education_overview",
+    "category": "Education",
+    "sample_questions": [
+      "Where do you study?",
+      "Tell me about your education"
+    ],
+    "alternate_phrasings": [
+      "What is your educational background?",
+      "Where are you pursuing your degree?",
+      "Which college do you go to?",
+      "What is your GPA or CGPA?",
+      "Tell me about your university or college life",
+      "What are you studying currently?",
+      "What degree are you pursuing?"
+    ],
+    "answer": "I am currently pursuing my B.Tech in Artificial Intelligence and Data Science at Vel Tech High Tech College (2024 - 2028). I maintain a strong academic record with an undergraduate CGPA of 8.91, alongside roles like Class Representative and Placement Coordinator.",
+    "tags": ["education", "college", "gpa", "cgpa", "degree", "university", "veltech", "vel tech", "academic"],
+    "priority": 5
+  }
+]

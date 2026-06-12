@@ -1,0 +1,40 @@
+[
+  {
+    "intent": "about_dhanush",
+    "category": "About Me",
+    "sample_questions": [
+      "Who is Dhanush?",
+      "Tell me about yourself",
+      "Introduce yourself"
+    ],
+    "alternate_phrasings": [
+      "Who are you?",
+      "Who built this website?",
+      "Tell me about Dhanush Dhamodharan",
+      "Can you describe yourself?",
+      "What is your background?",
+      "Introduce the developer",
+      "Who is the owner of this portfolio?"
+    ],
+    "answer": "I am Dhanush Dhamodharan (Dhanu), a B.Tech Artificial Intelligence and Data Science undergraduate (CGPA: 8.91). I am an AI developer, Instagram tech content creator with a reach of over 2.5 Lakh+, and a dedicated placement coordinator. I love engineering intelligent, futuristic software systems and machine learning solutions that make a real difference.",
+    "tags": ["about", "dhanush", "intro", "introduction", "background", "bio", "developer"],
+    "priority": 5
+  },
+  {
+    "intent": "portfolio_details",
+    "category": "Portfolio",
+    "sample_questions": [
+      "What is this website?",
+      "Tell me about this portfolio"
+    ],
+    "alternate_phrasings": [
+      "How was this website built?",
+      "What technologies did you use for your portfolio?",
+      "Tell me about your portfolio design",
+      "Who designed this portfolio?"
+    ],
+    "answer": "I designed and built this portfolio website as an interactive holographic terminal. It uses React, Vite, Tailwind CSS, and custom vanilla CSS for high-fidelity animations like canvas particles and 3D coverflow scrolling. It is integrated with my digital twin chatbot, DHANU_AI_CORE, to provide details about my work and academic milestones.",
+    "tags": ["portfolio", "website", "tech", "stack", "design", "animation", "react", "vite"],
+    "priority": 4
+  }
+]

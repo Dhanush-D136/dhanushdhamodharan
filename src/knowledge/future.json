@@ -1,0 +1,35 @@
+[
+  {
+    "intent": "career_goals",
+    "category": "Career Goals",
+    "sample_questions": [
+      "What are your career goals?",
+      "Where do you see yourself in the future?"
+    ],
+    "alternate_phrasings": [
+      "What is your dream job?",
+      "What are your professional ambitions?",
+      "What kind of roles are you looking for?",
+      "What are your objectives as an AI Engineer?"
+    ],
+    "answer": "My primary career goal is to become an expert AI Engineer and Data Scientist, bridging the gap between deep machine learning models and intuitive user interfaces. I aim to build and deploy systems that solve practical challenges in industries like agriculture, CCTV security, and enterprise automation.",
+    "tags": ["career", "goals", "ambitions", "future", "dream job", "role", "ai engineer", "data scientist"],
+    "priority": 5
+  },
+  {
+    "intent": "future_plans",
+    "category": "Future Plans",
+    "sample_questions": [
+      "What are your future plans?",
+      "What are you working on next?"
+    ],
+    "alternate_phrasings": [
+      "What is next for Dhanush?",
+      "What are you studying or learning now?",
+      "What is your next project plan?"
+    ],
+    "answer": "My immediate plans involve building on my computer vision research, pursuing more advanced cloud architectures, expanding my tech reach to help more aspiring engineers on Instagram, and securing a professional AI/ML engineering role or internship.",
+    "tags": ["future", "plans", "next", "projects", "learning", "study", "internship"],
+    "priority": 5
+  }
+]

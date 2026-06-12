@@ -1,33 +1,14 @@
 import { useState, useEffect, useRef } from "react";
 import { X, Send, Bot, User, Sparkles } from "lucide-react";
 
+import { AIEngine } from "@/lib/ai-engine";
+
 interface Message {
   id: string;
   text: string;
   sender: "bot" | "user";
   timestamp: Date;
 }
-
-const suggestions = [
-  "Who is Dhanush?",
-  "Show his top projects",
-  "His achievements?",
-  "How can I contact him?",
-];
-
-const responses: Record<string, string> = {
-  "who is dhanush?": 
-    "Dhanush Dhamodharan (Dhanu) is a B.Tech Artificial Intelligence and Data Science undergraduate (CGPA: 8.91). He is an AI Developer, Instagram Tech Content Creator, and Placement Coordinator. He designs intelligent software and machine learning solutions.",
-  
-  "show his top projects": 
-    "His main projects include:\n1. **Crop Yield Prediction:** A machine learning model using satellite imagery, soil, and historical climate weather metrics.\n2. **AI Student Tracking:** A computer vision CCTV model with automated facial recognition attendance.\n3. **EduSync AI:** A comprehensive digital campus administration system.\n4. **Vel One ERP AI:** An intelligent wholesale billing, inventory, and WhatsApp invoicing platform.",
-  
-  "his achievements?": 
-    "Key milestones:\n- B.Tech CGPA of **8.91**.\n- Completed **Computer Vision Internship** at NSIC (National Small Industries Corp).\n- Class Representative & Engineering Placement Coordinator.\n- Certified in **Azure AI**, **Oracle Cloud AI**, and **SageMaker**.",
-  
-  "how can i contact him?": 
-    "You can reach Dhanush instantly via:\n- **Email:** dhanushsinger872@gmail.com\n- **WhatsApp & Call:** +91 9994726807\n- **LinkedIn:** Dhanush Dhamodharan\n- **GitHub:** Dhanush-D136"
-};
 
 export default function AIAssistant() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,6 +23,14 @@ export default function AIAssistant() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
+
+  const aiEngineRef = useRef(new AIEngine());
+  const [suggestions, setSuggestions] = useState<string[]>([
+    "Who is Dhanush?",
+    "Show his top projects",
+    "His achievements?",
+    "What are his skills?",
+  ]);
 
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -61,29 +50,20 @@ export default function AIAssistant() {
     setInputValue("");
     setIsTyping(true);
 
-    // Dynamic NLP-like keyword extraction
-    const query = text.toLowerCase().trim();
-    let responseText = "I'm still learning! You can contact Dhanush directly at +91 9994726807 or check out his projects by using the suggestion chips below.";
-
-    for (const key of Object.keys(responses)) {
-      if (query.includes(key.replace("his ", "").replace("show ", "")) || key.includes(query)) {
-        responseText = responses[key];
-        break;
-      }
-    }
-
     setTimeout(() => {
+      const result = aiEngineRef.current.getResponse(text);
       setIsTyping(false);
       setMessages((prev) => [
         ...prev,
         {
           id: Math.random().toString(),
-          text: responseText,
+          text: result.answer,
           sender: "bot",
           timestamp: new Date(),
         },
       ]);
-    }, 900);
+      setSuggestions(result.suggestions);
+    }, 700);
   };
 
   return (
